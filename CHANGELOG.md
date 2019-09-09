@@ -7,6 +7,178 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 -----------------------------------------------------------------------
 
+## [1.8.8] - 2019-09-01
+
+### Added
+
+- Added a button to give users the ability to copy the `request body` to the clipboard
+
+-----------------------------------------------------------------------
+
+## [1.8.7] - 2019-09-01
+
+### Added
+
+- Added support to format XML responses (Credit to @ldz-w)
+
+-----------------------------------------------------------------------
+
+## [1.8.6] - 2019-08-02
+
+### Updated
+
+- Updated the node package dependencies
+
+-----------------------------------------------------------------------
+
+## [1.8.5] - 2019-07-17
+
+### Fixed
+
+- Fixed a bug that prevented the Expand/Collapse buttons from working on multiple iterations
+
+-----------------------------------------------------------------------
+
+## [1.8.4] - 2019-07-17
+
+### Fixed
+
+- Bumping the version to manually publish a new NPM version
+
+-----------------------------------------------------------------------
+
+## [1.8.3] - 2019-07-17
+
+### Added
+
+- Added support for `urlencoded` request bodies
+- Added new tests to cover this request body type
+- Added a visual clue to the `request` bar to show the number of `skipped` tests
+
+-----------------------------------------------------------------------
+
+## [1.8.2] - 2019-07-12
+
+### Fixed
+
+- Fixed the incorrectly formatted JSON on the response body
+
+-----------------------------------------------------------------------
+
+## [1.8.1] - 2019-06-28
+
+### Fixed
+
+- Syntax error in the templates causing iterations on Safari to fail (Credit to @sam-viz)
+
+-----------------------------------------------------------------------
+
+## [1.8.0] - 2019-06-28
+
+### Added
+
+- Added support for `formdata` request bodies (Credit to @Prachi481992)
+- Added new tests to cover this request body type
+
+-----------------------------------------------------------------------
+
+## [1.7.6] - 2019-06-26
+
+### Fixed
+
+- Incorrect spelling on the template
+
+-----------------------------------------------------------------------
+
+## [1.7.5] - 2019-06-24
+
+### Updated
+
+- Updated the jQuery links inside the templates
+
+-----------------------------------------------------------------------
+
+## [1.7.4] - 2019-05-29
+
+### Added
+
+- Added a new `titleSize` cli option to change the size of the main heading which becomes truncated when using the `title` flag
+
+-----------------------------------------------------------------------
+
+## [1.7.3] - 2019-05-24
+
+### Added
+
+- Added buttons to expand / collapse all the folders in the `Total Requests` tab
+- Added a visual indicator on the folder bar to show if any of the requests have failed tests in them
+
+-----------------------------------------------------------------------
+
+## [1.7.2] - 2019-05-11
+
+### Added
+
+- Added a helper to change the browser title element from the CLI
+
+-----------------------------------------------------------------------
+
+## [1.7.1] - 2019-05-08
+
+### Updated
+
+- The `Failed Tests` tab now also includes the folder path of the failed test.
+
+-----------------------------------------------------------------------
+
+## [1.7.0] - 2019-05-08
+
+### Added
+
+- A optional flag has been added to display the `console.log()` statements in the report
+
+-----------------------------------------------------------------------
+
+## [1.6.11] - 2019-04-29
+
+### Updated
+
+- Updated the `README` with links to an interactive set of reports
+
+-----------------------------------------------------------------------
+
+## [1.6.10] - 2019-03-31
+
+### Updated
+
+- Updated the dependencies
+
+-----------------------------------------------------------------------
+
+## [1.6.9] - 2019-03-21
+
+### Changed
+
+- Changed the styling on all the templates if the request doesn't have tests
+
+-----------------------------------------------------------------------
+
+## [1.6.8] - 2019-03-18
+
+### Added
+
+- Added the `Request Headers` table to all the templates
+
+-----------------------------------------------------------------------
+
+## [1.6.7] - 2019-03-15
+
+### Added
+
+- Added the `retrieve` property to the DataTables object
+
+-----------------------------------------------------------------------
+
 ## [1.6.6] - 2019-03-10
 
 ### Changed

@@ -21,12 +21,22 @@ A [Newman](https://github.com/postmanlabs/newman) HTML reporter that has been ex
 - Folder level descriptions with rendered Markdown syntax
 - Response Headers displayed for each of the requests
 - Iterations separated by tabs in the `Requests` view
-- First attempt to add the `console.log` statements - These are currently separate from the parent requests but it's the first step in getting them on the report
+- First attempt to add the `console.log` statements, using the `--reporter-htmlextra-logs` CLI flag - These are currently separate from the parent requests but it's the first step in getting them on the report
 - A `Dark Theme` dashboard template - This is an option from the CLI using the `--reporter-htmlextra-darkTheme` flag or in a script by setting the `darkTheme` property to `true`.
 - A `helper` to give more control over the main `title` shown on the report. Use the `--reporter-htmlextra-title` flag to add your own unique headline.
 - The default filename, if you do not supply the `export` location, is now includes the collection name in the filename rather that the reporter name.
 - Use the `onlyShowFails` option to reduce the report down to just showing the requests that had test failures.
 - More to come...
+
+## Interactive Report Examples
+
+To give you an idea of what the final reports will look like, I've added a few working examples here:
+
+- [All the Tests Passing](https://s3.eu-west-2.amazonaws.com/newman-htmlextra-reports/All_Passed.html)
+- [Failed and Skipped Tests during the Collection run](https://s3.eu-west-2.amazonaws.com/newman-htmlextra-reports/Fails_And_Skips.html)
+- [The Dark Theme version of the final report](https://s3.eu-west-2.amazonaws.com/newman-htmlextra-reports/Dark_Theme.html)
+
+These a _just_ a few of the reports that can be produced from the reporter. You will find more options available to help configure the final output, in the sections below.
 
 ## Install
 
@@ -63,7 +73,10 @@ newman run https://www.getpostman.com/collections/631643-f695cab7-6878-eb55-7943
 | `--reporter-htmlextra-showOnlyFails` | Use this optional flag to tell the reporter to display only the requests with failed tests. |
 | `--reporter-htmlextra-darkTheme` | Use this optional flag to switch the reporter template to the `Dark Theme` dashboard. |
 | `--reporter-htmlextra-testPaging` | Use this optional flag to add pagination to the tests in the request view. |
+| `--reporter-htmlextra-browserTitle` | Use this optional flag to change the name of the title in the browser tab. The default name is "Newman Summary Report". |
 | `--reporter-htmlextra-title` | This optional flag can be used to give your report a different main `Title` in the centre of the report. If this is not set, the report will show "Newman Run Dashboard". |
+| `--reporter-htmlextra-titleSize` | An optional flag to reduce the size of the main report title. The sizes range from `1` to `6`, the higher the number, the smaller the title will be. The default size is `2`. |
+| `--reporter-htmlextra-logs` | This optional flag shows any console log statements in the collection, on the final report. The is `false` by default. |
 
 Custom templates (currently handlebars only) can be passed to the HTML reporter via `--reporter-htmlextra-template <path>` with `--reporters htmlextra` and `--reporter-htmlextra-export`.
 The [default template](./lib/dashboard-template.hbs) is used in all other cases.
@@ -84,6 +97,12 @@ To add a custom `Title` to your report from the CLI, the following command can b
 
 ```console
 newman run https://www.getpostman.com/collections/631643-f695cab7-6878-eb55-7943-ad88e1ccfd65-JsLv -r htmlextra --reporter-htmlextra-title "My new report title"
+```
+
+To show the `console.log()` statements on the report from the CLI, the following command can be used:
+
+```console
+newman run https://www.getpostman.com/collections/631643-f695cab7-6878-eb55-7943-ad88e1ccfd65-JsLv -r htmlextra --reporter-htmlextra-logs
 ```
 
 #### With Newman as a Library
@@ -171,6 +190,27 @@ newman.run({
 });
 ```
 
+Add the `logs` property to the `htmlextra` object, to pass in your own custom title to the report.
+
+```javascript
+const newman = require('newman');
+
+newman.run({
+    collection: require('./examples/Restful_Booker_Collection.json'), // can also provide a URL or path to a local JSON file.
+    environment: require('./examples/Restful_Booker_Environment.json'),
+    reporters: 'htmlextra',
+    reporter: {
+        htmlextra: {
+            export: './<html file path>', // If not specified, the file will be written to `newman/` in the current working directory.
+            logs: true // optional, tells the reporter to display the console log statements in the report. This is False by default.
+        }
+    }
+}, function (err) {
+    if (err) { throw err; }
+    console.log('collection run complete!');
+});
+```
+
 ## Default Dashboard
 
 ![Dashboard Template](./examples/Dashboard_Template.PNG)
@@ -191,7 +231,7 @@ newman.run({
 
 ### Show Only Failures
 
-If you have mulitiple requests in your collections the report can become quite verbose, I've added a flag option to just create the report with only the requests that have `Failed` tests. This is very similar to the default report but the folders will already be expanded, if their are any failed tests.
+If you have multiple requests in your collections the report can become quite verbose, I've added a flag option to just create the report with only the requests that have `Failed` tests. This is very similar to the default report but the folders will already be expanded, if their are any failed tests.
 
 ![Failed Requests View](./examples/Failed_Requests_View.PNG)
 
@@ -203,7 +243,7 @@ Add the `darkTheme` flag to see this in the `dark` view.
 
 This is the first attempt to expose any `console.log` statements that are really useful to have in your `Requests`. The event from Newman doesn't contain a lot of detail about the request that it was part of and this will involve, in it's current state a horrible hacky fix to map things together. In the meantime, the Postman `pm.info` function provides these for you and can just be added to the `console.log` statement, as workaround. Something like `${pm.info.requestName} | ${pm.info.eventName} | Iteration: ${pm.info.iteration + 1}` will log out the missing event information.
 
-If the collection contains Console Logs, a new tab will appear, that will show all the details. This information is displayed in a similar way that you may have seen on the `Failed Tests` and `Skipped Tests`.
+If the collection contains Console Logs and you use the `--reporter-htmlextra-logs` flag, a new tab will appear, that will show all the details. This information is displayed in a similar way that you may have seen on the `Failed Tests` and `Skipped Tests`.
 
 ![Console Log](./examples/Console_Log_View.PNG)
 
